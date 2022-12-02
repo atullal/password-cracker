@@ -1,6 +1,7 @@
 from flask import Flask, session
 from flask import request, jsonify
 from flask_cors import CORS
+import flask
 import server
 import asyncio
 from websockets import serve
@@ -16,6 +17,7 @@ start_server()
 app = Flask(__name__)
 sock = Sock(app)
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 @app.route("/")
@@ -26,7 +28,9 @@ def hello_world():
 
 @app.route("/get-available-clients")
 def available_clients():
-    return server.get_available_clients()
+    response = flask.jsonify(server.get_available_clients())
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 # clients = [{"address": "123214", "port": 2145}]
 @app.route("/password-cracker", methods = ['POST'])
@@ -59,6 +63,14 @@ def add_client():
 def password_response(sock):
     while True:
         data = json.loads(sock.receive())
-        result = server.send_password_response(data["request_id"])
-        sock.send(result)
+        if(data["task"] == "password"):
+            clients = data["clients"]
+            password_hash = data['hash']
+            sock.send(server.decrypt_md5(sock, password_hash, clients))
+        
+        if(data["task"] == "add"):
+            request_id = data['requestId']
+            clients = data["clients"]
+            password_hash = data['hash']
+            sock.send(server.add_client(sock, request_id, clients, password_hash))
 

@@ -9,17 +9,16 @@
   margin-bottom: 40px;
 }
 
-.App {
-  color: white;
-}
-
-.App .text-muted {
-  color: #d4dbe1!important;
-}
-
 .submit-button {
   font-size: 1.5em!important;
   padding: 10px 18px!important;
   border-radius: 50px!important;
   float: right;
+}
+
+.main-card {
+  padding: 45px 80px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 10px 10px 10px #00000050;
 }

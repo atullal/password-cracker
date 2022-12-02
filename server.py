@@ -73,7 +73,7 @@ def create_dictionaries():
     with Pool(52) as p:
         p.map(create_dictionary, all_letters)
 
-def process_hash(client, request_id, hash_string):
+def process_hash(sock, client, request_id, hash_string):
     try:
         conn = client[1]
         result = "Not found"
@@ -98,6 +98,10 @@ def process_hash(client, request_id, hash_string):
             response = conn.recv(MSG_LENGTH).decode()
             print(f"Final Response : {response}")
             if response == "Password not found":
+                sock.send({
+                    "success": 0,
+                    "file": file_to_process
+                })
                 continue
             else:
                 # todo: terminate all threads, find a better way
@@ -106,6 +110,10 @@ def process_hash(client, request_id, hash_string):
                 if client in clients_in_use:
                     clients_in_use.remove(client)
                 print(f"Returning Final Response : {response}")
+                sock.send({
+                    "success": 1,
+                    "password": response
+                })
                 result = response
                 return response
                 break
@@ -153,7 +161,7 @@ def process_hash(client, request_id, hash_string):
     # file_to_process = file_combinations.pop(0)
     # conn = connections.pop(0)
 
-def add_client(request_id, required_clients, hash_string):
+def add_client(sock, request_id, required_clients, hash_string):
     for requested_client in required_clients:
         for in_use_client in clients_in_use:
             if in_use_client[0][0] == requested_client["address"] and in_use_client[0][1] == requested_client["port"]:
@@ -172,17 +180,17 @@ def add_client(request_id, required_clients, hash_string):
     request_threads = []
     
     for conn in selected_clients:
-        thread = ThreadReturn(target=process_hash, args=(conn, request_id, hash_string))
+        thread = ThreadReturn(target=process_hash, args=(sock, conn, request_id, hash_string))
         request_threads.append(thread)
         thread.start()
 
     threads_request_id[request_id].extend(request_threads)
 
     return {
-        "success": request_id
+        "requestId": request_id
     }
     
-def decrypt_md5(hash_string, required_clients):
+def decrypt_md5(sock, hash_string, required_clients):
     global request_id_counter
     for requested_client in required_clients:
         for in_use_client in clients_in_use:
@@ -207,16 +215,16 @@ def decrypt_md5(hash_string, required_clients):
 
     for conn in selected_clients:
         print("Starting a new thread")
-        thread = ThreadReturn(target=process_hash, args=(conn, request_id, hash_string))
+        thread = ThreadReturn(target=process_hash, args=(sock, conn, request_id, hash_string))
         request_threads.append(thread)
         thread.start()
     threads_request_id[request_id] = request_threads
 
     return {
-        "success": request_id
+        "requestId": request_id
     }
 
-def send_password_response(request_id):
+def send_password_response(sock, request_id):
     results = []
     for request_thread in threads_request_id[request_id]:
         results.append(request_thread.join())
