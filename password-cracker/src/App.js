@@ -184,7 +184,7 @@ function App() {
                   <p>Password: {result}</p>
                   <p>Start Time: {startTime.toTimeString()}</p>
                   <p>End Time: {endTime.toTimeString()}</p>
-                  <p>RTT: {(endTime.getTime() - startTime.getTime()) / 1000} seconds</p>
+                  <p>Total time: {(endTime.getTime() - startTime.getTime()) / 1000} seconds</p>
                   </>}
                   
                 </div>
