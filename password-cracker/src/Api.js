@@ -12,10 +12,9 @@ export const getInfo = () => {
     });
 }
 
-export const submitForm = (email, md5, clients) => {
+export const submitForm = (md5, clients) => {
     return new Promise((res, rej) => {
         axios.post('http://127.0.0.1:5000/password-cracker', {
-            email: email,
             hash: md5,
             clients: clients
         })
