@@ -1,8 +1,12 @@
 import axios from 'axios';
 
+const base = "127.0.0.1:5000";
+export const api = `http://${base}/`;
+export const wsApi = `ws://${base}/password`;
+
 export const getInfo = () => {
     return new Promise((res, rej) => {
-        axios.get('http://127.0.0.1:5000/')
+        axios.get(api)
         .then(function (response) {
             res(response);
         })
@@ -14,7 +18,7 @@ export const getInfo = () => {
 
 export const submitForm = (md5, clients) => {
     return new Promise((res, rej) => {
-        axios.post('http://127.0.0.1:5000/password-cracker', {
+        axios.post(`${api}password-cracker`, {
             hash: md5,
             clients: clients
         })
@@ -29,7 +33,7 @@ export const submitForm = (md5, clients) => {
 
 export const addClientsApi = (md5, clients, requestId) => {
     return new Promise((res, rej) => {
-        axios.post('http://127.0.0.1:5000/add-client', {
+        axios.post(`${api}add-client`, {
             hash: md5,
             clients: clients,
             requestId: requestId
@@ -45,7 +49,7 @@ export const addClientsApi = (md5, clients, requestId) => {
 
 export const getAvailableClients = () => {
     return new Promise((res, rej) => {
-        axios.get('http://127.0.0.1:5000/get-available-clients')
+        axios.get(`${api}get-available-clients`)
         .then(function (response) {
             res(response);
         })

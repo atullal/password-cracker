@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 
 import './App.css';
 import { useEffect, useState } from 'react';
-import { getAvailableClients, submitForm, addClientsApi } from './Api';
+import { getAvailableClients, submitForm, addClientsApi, wsApi } from './Api';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
@@ -16,7 +16,7 @@ function App() {
   const [result, setResult] = useState();
   const [startTime, setStartTime] = useState();
   const [endTime, setEndTime] = useState();
-  const { sendMessage, lastMessage, readyState } = useWebSocket('ws://127.0.0.1:5000/password');
+  const { sendMessage, lastMessage, readyState } = useWebSocket(wsApi);
   const [messageHistory, setMessageHistory] = useState([]);
   const [err, setErr] = useState();
   const [requestId, setRequestId] = useState();
