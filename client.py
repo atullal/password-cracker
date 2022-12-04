@@ -29,7 +29,7 @@ def main():
             with open("./client/"+file_name, "ab") as file:
                 while True:
                     data = client.recv(1024)
-                    if data.decode()[-1:-4:-1] == "EOF":
+                    if data.decode()[-1:-4:-1] == "$$$":
                         break
                     all_data.append(data)
                 file.write(b"".join(all_data))

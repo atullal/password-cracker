@@ -96,7 +96,7 @@ def process_hash(sock, client, request_id, hash_string):
             data = file.read()
             file.close()
             conn.send(data)
-            conn.send("FOE".encode())
+            conn.send("$$$".encode())
             response = conn.recv(MSG_LENGTH).decode()
             print(f"Response File data : {response}")
             response = conn.recv(MSG_LENGTH).decode()
