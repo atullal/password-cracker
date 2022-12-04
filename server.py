@@ -70,6 +70,10 @@ def get_available_clients():
     }
 
 def create_dictionaries():
+    dictionary_path = r'./dictionary' 
+    if not os.path.exists(dictionary_path):
+        os.makedirs(dictionary_path)
+
     with Pool(52) as p:
         p.map(create_dictionary, all_letters)
 

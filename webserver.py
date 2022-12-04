@@ -10,7 +10,7 @@ from flask_sock import Sock
 import json
 
 def start_server():
-    # server.create_dictionaries()
+    server.create_dictionaries()
     server.start_server_node_thread(5004)
 
 start_server()

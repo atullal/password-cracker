@@ -60,6 +60,11 @@ def main():
     except (KeyboardInterrupt, InterruptedError) as error:
         print(f"Interrupt Error : {error}")
 
+def create_client_folder():
+    client_path = r'./client' 
+    if not os.path.exists(client_path):
+        os.makedirs(client_path)
 
 if __name__ == "__main__":
+    create_client_folder()
     main()
