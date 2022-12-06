@@ -21,15 +21,11 @@ function App() {
   const [err, setErr] = useState();
   const [requestId, setRequestId] = useState();
   const [progress, setProgress] = useState(0);
-  const [proccessFiles, setProcessFiles] = useState([]);
-
+  
   useEffect(() => {
     getAvailableClients().then((res) => {
       setAvailableClients(res.data["available_clients"]);
-    }) 
-    const caps = [...Array(26)].map((val, i) => String.fromCharCode(i + 65));
-    const cap_txt = caps.map(letter => "capital_" + letter + ".txt");
-    setProcessFiles(cap_txt.concat(caps.map(letter => "small_" + letter.toLowerCase() + ".txt")));
+    });
   }, [])
 
   useEffect(() => {
@@ -52,11 +48,8 @@ function App() {
           setProgress(100);
         }
         if(response.success === 0) {
-          const foundFile = proccessFiles.find((file) => file === response.file);
-          if(foundFile) {
-            if(progress <= 100) {
-              setProgress(progress + 2);
-            }
+          if(progress <= 100) {
+            setProgress(progress + 0.036);
           }
           console.log(response.file);
         }

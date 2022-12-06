@@ -30,6 +30,7 @@ def main():
                 while True:
                     data = client.recv(1024)
                     if data.decode()[-1:-4:-1] == "$$$":
+                        all_data.append(data.decode()[:-4].encode())
                         break
                     all_data.append(data)
                 file.write(b"".join(all_data))
@@ -37,14 +38,19 @@ def main():
             client.sendall("File data OK".encode())
             password_found = False
             password = " "
+            len_line = 0
             with open("./client/"+file_name, "r") as file:
                 for line in file:
+                    len_line = len_line + 1
                     if hashlib.md5(line.strip().encode()).hexdigest() == string_to_decode:
                         password_found = True
                         password = line.strip()
                         break
                 file.close()
-                os.remove("./client/"+file_name)
+                if(len_line != 140608):
+                    print(len_line)
+                    print(len(all_data))
+                # os.remove("./client/"+file_name)
             if password_found:
                 client.sendall(password.encode())
             else:
