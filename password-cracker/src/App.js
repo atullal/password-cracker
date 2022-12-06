@@ -182,13 +182,13 @@ function App() {
                   <p>Password: {result}</p>
                   <p>Start Time: {startTime.toTimeString()}</p>
                   <p>End Time: {endTime.toTimeString()}</p>
-                  <p>Total time: {(endTime.getTime() - startTime.getTime()) / 1000} seconds</p>
+                  <p>Total time: {((endTime.getTime() - startTime.getTime()) / 1000).toFixed(3)} seconds</p>
                   { stats ? <>
                     <p>Hashes processed: {stats.totalHashes}</p>
                     <p>Number of files processed: {stats.numberOfFiles}</p>
-                    <p>Total time to process hashes: {stats.totalTime} seconds</p>
-                    <p>Time to process each hash: {stats.totalTime * 1000000/stats.totalHashes} μs</p>
-                    <p>Time to process each file: {stats.numberOfFiles* 1000000/stats.totalHashes} μs</p>
+                    <p>Total time to process hashes: {stats.totalTime.toFixed(3)} seconds</p>
+                    <p>Time to process each hash: {(stats.totalTime * 1000000/stats.totalHashes).toFixed(3)} μs</p>
+                    <p>Time to process each file: {(stats.numberOfFiles* 1000000/stats.totalHashes).toFixed(3)} μs</p>
                   </> : <></>}
                   </>}
                   
