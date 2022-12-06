@@ -53,10 +53,16 @@ def add_client():
     
     return server.add_client(request_id, clients, password_hash)
 
-# @app.route("/password-crack-status/<int:request_id>")
-# def password_cracker(request_id):
-#     data = request.get_json()
-#     return server.add_client(request_id)
+@app.route("/stats", methods = ['POST'])
+def statistics():
+    data = request.get_json()
+    request_id = data['requestId']
+    password = data["password"]
+    
+    print("Sending " + password)
+    
+    return server.calculate_statistics(request_id, password)
+
 
 
 @sock.route('/password')

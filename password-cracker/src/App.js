@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 
 import './App.css';
 import { useEffect, useState } from 'react';
-import { getAvailableClients, submitForm, addClientsApi, wsApi } from './Api';
+import { getAvailableClients, submitForm, addClientsApi, wsApi, getStatistics } from './Api';
 import useWebSocket, { ReadyState } from 'react-use-websocket';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 
@@ -21,6 +21,7 @@ function App() {
   const [err, setErr] = useState();
   const [requestId, setRequestId] = useState();
   const [progress, setProgress] = useState(0);
+  const [stats, setStats] = useState();
   
   useEffect(() => {
     getAvailableClients().then((res) => {
@@ -46,6 +47,10 @@ function App() {
           setEndTime(new Date());
           setResult(response.password);
           setProgress(100);
+          getStatistics(requestId, response.password).then((res) => {
+            console.log(res.data);
+            setStats(res.data);
+          })
         }
         if(response.success === 0) {
           if(progress <= 100) {
@@ -178,6 +183,11 @@ function App() {
                   <p>Start Time: {startTime.toTimeString()}</p>
                   <p>End Time: {endTime.toTimeString()}</p>
                   <p>Total time: {(endTime.getTime() - startTime.getTime()) / 1000} seconds</p>
+                  { stats ? <>
+                    <p>Hashes processed: {stats.totalHashes}</p>
+                    <p>Number of files processed: {stats.numberOfFiles}</p>
+                    <p>Total time to process hashes: {stats.totalTime}</p>
+                  </> : <></>}
                   </>}
                   
                 </div>

@@ -10,6 +10,7 @@ import time
 from threading import Thread
 import hashlib
 import filename_hash
+import timeit
 
 MSG_LENGTH = 1024
 
@@ -22,6 +23,7 @@ connections = []
 clients_in_use = []
 files_processing = {}
 threads_request_id = {}
+stats_request_id = {}
 
 filename_hash_dict = filename_hash.filename_hash_dictionary
 
@@ -99,6 +101,7 @@ def process_hash(sock, client, request_id, hash_string):
         conn = client[1]
         result = "Not found"
         while len(files_processing[request_id]):
+            start = timeit.default_timer()
             file_to_process = files_processing[request_id].pop(0)
             conn.send(hash_string.encode())
             response = conn.recv(MSG_LENGTH).decode()
@@ -120,6 +123,11 @@ def process_hash(sock, client, request_id, hash_string):
             print(f"Response File data : {response}")
             response = conn.recv(MSG_LENGTH).decode()
             print(f"Final Response : {response}")
+            stop = timeit.default_timer()
+            if(request_id not in stats_request_id):
+                stats_request_id[request_id] = [stop - start]
+            else:
+                stats_request_id[request_id].append(stop-start)
             if response == "Password not found":
                 sock.send({
                     "success": 0,
@@ -321,6 +329,35 @@ def start_webserver_node(server_port):
         print(f"Interrupt Error : {error}")
     finally:
         exit(0)
+
+def calculate_statistics(request_id, password):
+    total_time = 0
+    for ptime in stats_request_id[request_id]:
+        total_time = total_time + ptime
+    total_hashes_processed =  (len(stats_request_id[request_id]) - 1) * 140608
+    l1 = password[0]
+    l2 = password[1]
+
+    if 'A' <= l1 <= 'Z':
+        prefix1 = "capital_"
+    else:
+        prefix1 = "small_"
+    if 'A' <= l2 <= 'Z':
+        prefix2 = "capital_"
+    else:
+        prefix2 = "small_"
+    file_name_with_password = prefix1+l1+prefix2+l2+'.txt'
+
+    with open("./dictionary/"+file_name_with_password, "r") as file:
+        for line in file:
+            total_hashes_processed = total_hashes_processed + 1
+            if line.strip().encode() == password:
+                break
+    return {
+        "totalTime": total_time,
+        "numberOfFiles": len(stats_request_id[request_id]),
+        "totalHashes": total_hashes_processed
+    }
 
 def start_server_node_thread(server_port):
     thread = threading.Thread(target=start_server_node, args=(server_port, ))

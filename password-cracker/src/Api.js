@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const base = "127.0.0.1:5000";
-export const api = `http://${base}/`;
-export const wsApi = `ws://${base}/password`;
+const base = "477433724b6b.ngrok.io";
+export const api = `https://${base}/`;
+export const wsApi = `wss://${base}/password`;
 
 export const getInfo = () => {
     return new Promise((res, rej) => {
@@ -50,6 +50,21 @@ export const addClientsApi = (md5, clients, requestId) => {
 export const getAvailableClients = () => {
     return new Promise((res, rej) => {
         axios.get(`${api}get-available-clients`)
+        .then(function (response) {
+            res(response);
+        })
+        .catch(function (error) {
+            rej(error);
+        });
+    });
+}
+
+export const getStatistics = (requestId, password) => {
+    return new Promise((res, rej) => {
+        axios.post(`${api}stats`, {
+            requestId,
+            password
+        })
         .then(function (response) {
             res(response);
         })
