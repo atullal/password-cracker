@@ -47,10 +47,7 @@ def main():
                         password = line.strip()
                         break
                 file.close()
-                if(len_line != 140608):
-                    print(len_line)
-                    print(len(all_data))
-                # os.remove("./client/"+file_name)
+                os.remove("./client/"+file_name)
             if password_found:
                 client.sendall(password.encode())
             else:

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const base = "bdbc-192-1-242-140.ngrok.io";
-export const api = `https://${base}/`;
-export const wsApi = `wss://${base}/password`;
+const base = "127.0.0.1:5000";
+export const api = `http://${base}/`;
+export const wsApi = `ws://${base}/password`;
 
 export const getInfo = () => {
     return new Promise((res, rej) => {
