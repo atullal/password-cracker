@@ -103,19 +103,19 @@ def process_hash(sock, client, request_id, hash_string):
         while len(files_processing[request_id]):
             start = timeit.default_timer()
             file_to_process = files_processing[request_id].pop(0)
+            print(hash_string.encode())
             conn.send(hash_string.encode())
             response = conn.recv(MSG_LENGTH).decode()
             print(f"Response String: {response}")
 
             conn.send(file_to_process.encode())
+            print(file_to_process.encode())
             response = conn.recv(MSG_LENGTH).decode()
             print(f"Response File name : {response}")
 
             filename= "./dictionary/"+file_to_process
             file = open(filename, "rb")
             data = file.read()
-            if(len(data) != 843648):
-                print(len(data))
             file.close()
             conn.send(data)
             conn.send("$$$".encode())

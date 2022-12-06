@@ -186,7 +186,9 @@ function App() {
                   { stats ? <>
                     <p>Hashes processed: {stats.totalHashes}</p>
                     <p>Number of files processed: {stats.numberOfFiles}</p>
-                    <p>Total time to process hashes: {stats.totalTime}</p>
+                    <p>Total time to process hashes: {stats.totalTime} seconds</p>
+                    <p>Time to process each hash: {stats.totalTime * 1000000/stats.totalHashes} μs</p>
+                    <p>Time to process each file: {stats.numberOfFiles* 1000000/stats.totalHashes} μs</p>
                   </> : <></>}
                   </>}
                   

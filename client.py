@@ -26,6 +26,10 @@ def main():
             print(f"File name : {file_name}")
             client.sendall("File name OK".encode())
             all_data = []
+            
+            if(string_to_decode.strip() == "" and len(string_to_decode.strip()) == 0):
+                client.sendall("Password not found".encode())
+                continue 
             with open("./client/"+file_name, "ab") as file:
                 while True:
                     data = client.recv(1024)
