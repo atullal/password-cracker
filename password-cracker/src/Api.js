@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const base = "477433724b6b.ngrok.io";
+const base = "passwordcracker.ngrok.io";
 export const api = `https://${base}/`;
 export const wsApi = `wss://${base}/password`;
 

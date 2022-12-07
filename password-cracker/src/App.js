@@ -54,7 +54,7 @@ function App() {
         }
         if(response.success === 0) {
           if(progress <= 100) {
-            setProgress(progress + 0.036);
+            setProgress(progress + 1.923);
           }
           console.log(response.file);
         }

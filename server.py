@@ -25,7 +25,7 @@ files_processing = {}
 threads_request_id = {}
 stats_request_id = {}
 
-filename_hash_dict = filename_hash.filename_hash_dictionary
+filename_hash_dict = {'small_a.txt': '8b6670b4e685ac42f4a42e6f4620f194', 'small_b.txt': '3da8214e632c76ababb2f3b3cf7b6c0a', 'small_c.txt': 'c476bbffd8933af9179d52b9eeb7b84b', 'small_d.txt': '55dd0d4d51d4f73cd4f4440606ba1a67', 'small_e.txt': 'b368d28eb5e14c9df56b3fd7f6da9a9b', 'small_f.txt': 'c2c08a1874beed7f7e53478765e7c0d8', 'small_g.txt': '68795ad898fa887d5acba86a2c2d44b2', 'small_h.txt': 'edf59c8ed0b103916d39ba3b695b505e', 'small_i.txt': '37b641eac0ca579b9dda34b87827627a', 'small_j.txt': '2ff59494ad0c1e141049f058563b06b5', 'small_k.txt': '82caa3421043750d0d9926d56d786ab5', 'small_l.txt': 'c9d5fa14076a78156849cf6cff1ba80b', 'small_m.txt': 'b39a8b43d784fe7ac272e2545c8981a7', 'small_n.txt': 'd1a3fbd26f20479a69bf04180c608317', 'small_o.txt': 'd5cc4eb4f1dd2acf615ce2cdff40fdea', 'small_p.txt': 'c1001fc6c472c6c94fc8623effd8f829', 'small_q.txt': 'a1eceeb6a0f2941a3e9ca6efb4bffe23', 'small_r.txt': '4e4f7e012dd9f718d5b024ffc532e1e9', 'small_s.txt': '9abfab217d508ed00500254dbbb0ef46', 'small_t.txt': '52388f2f2bfa58899017713399bcfb75', 'small_u.txt': '880ba0410ff1f35061081a760051dfdb', 'small_v.txt': 'cacb7c4e6302743440f98a630b0bb750', 'small_w.txt': '491597331daa737f88dd3e001332a9ad', 'small_x.txt': '81cd3f2d225badf2279e5da8acb03ea9', 'small_y.txt': 'd58c08a5401e3f277a99e4652468480d', 'small_z.txt': 'dd1fbfe282afd1198aa7fe420f408736', 'capital_A.txt': 'a32a656790c98caba9abc5e5b57ea2c6', 'capital_B.txt': '65d71a9c5dd1b0faabb5ac919a98fae7', 'capital_C.txt': '347216d1708219fc7ec359e368760706', 'capital_D.txt': '3ad72a248cdf6d21f793d139f65c49b5', 'capital_E.txt': '41039429bc2570c180a372915fde94d2', 'capital_F.txt': '321c836a13b75421a892b9c029199fa3', 'capital_G.txt': 'f91e318038dc6509e4b7417147c65aac', 'capital_H.txt': '075ed126bab0730e622278c28c91e088', 'capital_I.txt': '4382d5fd50c66265c295aa706a68fcc3', 'capital_J.txt': '454f0c3b6e217c365372c84d0a608eb0', 'capital_K.txt': 'cf9fc93f5672138ca563f91867e759f4', 'capital_L.txt': 'b04d79463d2a2a802494cbaf68c3c6c9', 'capital_M.txt': 'ede9e2ecc17b753c85f58ecbba25977b', 'capital_N.txt': '7eb96be1406d1fb84fb9b6746fbb5352', 'capital_O.txt': '68e73d9ce206bc3d62e9993ef04bc3fd', 'capital_P.txt': '3fe3b4bdf5393035ed22029a2c318bea', 'capital_Q.txt': '26009bde5bf4651a5784e2ac2255c63d', 'capital_R.txt': '778ee57411f17b39c19a7df77b9272df', 'capital_S.txt': 'f97aad33df795f6626660c99867f3a90', 'capital_T.txt': '5875fc701ca9b0603ca8d5ae5716084b', 'capital_U.txt': 'e94c862d95597f3add51eb5f37670291', 'capital_V.txt': '1532a75445c70bc3efe0b6142d2887b9', 'capital_W.txt': 'ec1dc37232702ab7f655d428dc6b7632', 'capital_X.txt': 'a7fa370a9fec30e803e41914961ecce5', 'capital_Y.txt': '88ad78b99517ebb1b29d329b69b1026c', 'capital_Z.txt': 'edb2d0e61c7dfd41910d6321fb289dd2'}
 
 class ThreadReturn(Thread):
     
@@ -42,33 +42,53 @@ class ThreadReturn(Thread):
         Thread.join(self, *args)
         return self._return
 
-def create_dictionary(l1l2):
-    l1, l2 = l1l2
-    if 'A' <= l1 <= 'Z':
-        prefix1 = "capital_"
-    else:
-        prefix1 = "small_"
+# def create_dictionary(l1l2):
+#     l1, l2 = l1l2
+#     if 'A' <= l1 <= 'Z':
+#         prefix1 = "capital_"
+#     else:
+#         prefix1 = "small_"
         
-    if 'A' <= l2 <= 'Z':
-        prefix2 = "capital_"
-    else:
-        prefix2 = "small_"
+#     if 'A' <= l2 <= 'Z':
+#         prefix2 = "capital_"
+#     else:
+#         prefix2 = "small_"
 
-    filename = prefix1+l1+prefix2+l2+".txt"
+#     filename = prefix1+l1+prefix2+l2+".txt"
+#     newpath = r'./dictionary/'+filename
+#     if (os.path.exists(newpath) and filename_hash_dict[filename] == hashlib.md5(open(newpath,'rb').read()).hexdigest()):
+#         return None
+#     file = open("./dictionary/"+filename, "w")
+#     file_names.append(filename)
+#     print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Creating dictionary {filename}")
+#     for l3 in all_letters:
+#         for l4 in all_letters:
+#             for l5 in all_letters:
+#                 file.write(l1+l2+l3+l4+l5+"\n")
+#     file.close()
+#     print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Saved dictionary {filename}")
+#     return None
+
+def create_dictionary(l1):
+    if 'A' <= l1 <= 'Z':
+        prefix = "capital_"
+    else:
+        prefix = "small_"
+    filename = prefix+l1+".txt"
     newpath = r'./dictionary/'+filename
     if (os.path.exists(newpath) and filename_hash_dict[filename] == hashlib.md5(open(newpath,'rb').read()).hexdigest()):
         return None
     file = open("./dictionary/"+filename, "w")
-    file_names.append(filename)
-    print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Creating dictionary {filename}")
-    for l3 in all_letters:
-        for l4 in all_letters:
-            for l5 in all_letters:
-                file.write(l1+l2+l3+l4+l5+"\n")
+    file_names.append(prefix+l1+".txt")
+    print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Creating dictionary {prefix+l1+'.txt'}")
+    for l2 in all_letters:
+        for l3 in all_letters:
+            for l4 in all_letters:
+                for l5 in all_letters:
+                    file.write(l1+l2+l3+l4+l5+"\n")
     file.close()
-    print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Saved dictionary {filename}")
+    print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Saved dictionary {prefix+l1+'.txt'}")
     return None
-
 
 def get_available_clients():
     response = []
@@ -89,12 +109,12 @@ def create_dictionaries():
     dictionary_path = r'./dictionary' 
     if not os.path.exists(dictionary_path):
         os.makedirs(dictionary_path)
-    l1l2list = []
-    for letter1 in all_letters:
-        for letter2 in all_letters:
-            l1l2list.append([letter1, letter2])
+    # l1l2list = []
+    # for letter1 in all_letters:
+    #     for letter2 in all_letters:
+    #         l1l2list.append([letter1, letter2])
     with Pool(52) as p:
-        p.map(create_dictionary, l1l2list)
+        p.map(create_dictionary, all_letters)
 
 def process_hash(sock, client, request_id, hash_string):
     try:
@@ -237,12 +257,14 @@ def decrypt_md5(sock, hash_string, required_clients):
                 clients_in_use.append(client)
 
     
-    file_combinations = []
-    letter_combinations = ["small_"+name for name in small_letters]
-    letter_combinations.extend(["capital_"+name for name in capital_letters])
-    for file_letter1 in letter_combinations:
-        for file_letter2 in letter_combinations:
-            file_combinations.append(file_letter1+file_letter2+'.txt')
+    # file_combinations = []
+    # letter_combinations = ["small_"+name for name in small_letters]
+    # letter_combinations.extend(["capital_"+name for name in capital_letters])
+    # for file_letter1 in letter_combinations:
+    #     for file_letter2 in letter_combinations:
+    #         file_combinations.append(file_letter1+file_letter2+'.txt')
+    file_combinations = ["small_"+name+".txt" for name in small_letters]
+    file_combinations.extend(["capital_"+name+".txt" for name in capital_letters])
 
     request_id = request_id_counter
     files_processing[request_id] = file_combinations
@@ -334,19 +356,15 @@ def calculate_statistics(request_id, password):
     total_time = 0
     for ptime in stats_request_id[request_id]:
         total_time = total_time + ptime
-    total_hashes_processed =  (len(stats_request_id[request_id]) - 1) * 140608
+    total_hashes_processed =  (len(stats_request_id[request_id]) - 1) * 7311616
     l1 = password[0]
-    l2 = password[1]
 
     if 'A' <= l1 <= 'Z':
-        prefix1 = "capital_"
+        prefix = "capital_"
     else:
-        prefix1 = "small_"
-    if 'A' <= l2 <= 'Z':
-        prefix2 = "capital_"
-    else:
-        prefix2 = "small_"
-    file_name_with_password = prefix1+l1+prefix2+l2+'.txt'
+        prefix = "small_"
+
+    file_name_with_password = prefix+l1+'.txt'
 
     with open("./dictionary/"+file_name_with_password, "r") as file:
         for line in file:
