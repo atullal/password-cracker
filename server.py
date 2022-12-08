@@ -308,33 +308,12 @@ def start_server_node(server_port):
         while True:
             conn, addr = server.accept()
             print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] CLIENT {addr[0]} connected to the SERVER.")
-            connections.append([addr, conn])
-            # thread = threading.Thread(target=connect_client, args=(conn, addr))
-            # thread.start()
-    except (socket.error, socket.gaierror, socket.herror) as error:
-        print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Socket Error : {error}")
-    except socket.timeout:
-        print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Connection timed out!!")
-    except (ConnectionError, ConnectionResetError, ConnectionAbortedError, ConnectionRefusedError) as error:
-        print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Connection Error : {error}")
-    except Exception as error:
-        print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Other Error : {error}")
-    except (KeyboardInterrupt, InterruptedError) as error:
-        print(f"Interrupt Error : {error}")
-    finally:
-        exit(0)
-
-def start_webserver_node(server_port):
-    addr = ('', server_port)
-    try:
-        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        server.bind(addr)
-        server.listen(10)
-
-        print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] Server is listening.\n")
-        while True:
-            conn, addr = server.accept()
-            print(f"[Time:{dt.datetime.now().strftime('%H:%M:%S')}] CLIENT {addr[0]} connected to the SERVER.")
+            foundClient = None
+            for client in connections:
+                if client[0][0] == addr[0]:
+                    foundClient = client
+            if(foundClient != None):
+                connections.remove(client)
             connections.append([addr, conn])
             # thread = threading.Thread(target=connect_client, args=(conn, addr))
             # thread.start()
