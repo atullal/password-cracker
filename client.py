@@ -15,7 +15,7 @@ def main():
 
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.settimeout(None)
+        client.settimeout(3600)
         client.connect((server_ip, server_port))
         print(f"Connected to the server {server_ip} on port {server_port}.\n")
         while True:
