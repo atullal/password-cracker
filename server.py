@@ -9,7 +9,6 @@ import os
 import time
 from threading import Thread
 import hashlib
-import filename_hash
 import timeit
 
 MSG_LENGTH = 1024

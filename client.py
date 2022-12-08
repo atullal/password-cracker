@@ -15,7 +15,7 @@ def main():
 
     try:
         client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.settimeout(500)
+        client.settimeout(50)
         client.connect((server_ip, server_port))
         print(f"Connected to the server {server_ip} on port {server_port}.\n")
         while True:
@@ -58,6 +58,7 @@ def main():
                 client.sendall("Password not found".encode())
     except socket.timeout:
         print(f"Connection timed out!!")
+        main()
     except (socket.error, socket.gaierror, socket.herror) as error:
         print(f"Socket Error : {error}")
     except (ConnectionError, ConnectionResetError, ConnectionAbortedError, ConnectionRefusedError) as error:
