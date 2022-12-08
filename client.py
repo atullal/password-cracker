@@ -56,10 +56,10 @@ def main():
                 client.sendall(password.encode())
             else:
                 client.sendall("Password not found".encode())
-    except (socket.error, socket.gaierror, socket.herror) as error:
-        print(f"Socket Error : {error}")
     except socket.timeout:
         print(f"Connection timed out!!")
+    except (socket.error, socket.gaierror, socket.herror) as error:
+        print(f"Socket Error : {error}")
     except (ConnectionError, ConnectionResetError, ConnectionAbortedError, ConnectionRefusedError) as error:
         print(f"Connection Error : {error}")
     except Exception as error:
