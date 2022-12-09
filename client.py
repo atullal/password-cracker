@@ -61,6 +61,7 @@ def main():
         main()
     except (socket.error, socket.gaierror, socket.herror) as error:
         print(f"Socket Error : {error}")
+        main()
     except (ConnectionError, ConnectionResetError, ConnectionAbortedError, ConnectionRefusedError) as error:
         print(f"Connection Error : {error}")
     except Exception as error:
