@@ -1,0 +1,13 @@
+#!/bin/bash
+gnome-terminal --title "Server" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc1.bbn.instageni.net -p 25816; exec bash"
+gnome-terminal --title "Server" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc1.bbn.instageni.net -p 25816; exec bash"
+gnome-terminal --title "Client 1" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc4.bbn.instageni.net -p 25810; exec bash"
+gnome-terminal --title "Client 2" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc1.bbn.instageni.net -p 25811; exec bash"
+gnome-terminal --title "Client 3" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc1.bbn.instageni.net -p 25812; exec bash"
+gnome-terminal --title "Client 4" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc3.bbn.instageni.net -p 25810; exec bash"
+gnome-terminal --title "Client 5" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc5.bbn.instageni.net -p 25810; exec bash"
+gnome-terminal --title "Client 6" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc1.bbn.instageni.net -p 25813; exec bash"
+gnome-terminal --title "Client 7" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc1.bbn.instageni.net -p 25814; exec bash"
+gnome-terminal --title "Client 8" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc2.bbn.instageni.net -p 25810; exec bash"
+gnome-terminal --title "Client 9" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc1.bbn.instageni.net -p 25815; exec bash"
+gnome-terminal --title "Client 10" -x bash -c "ssh -i ./id_geni_ssh_rsa anishil@pc1.bbn.instageni.net -p 25810; exec bash"
